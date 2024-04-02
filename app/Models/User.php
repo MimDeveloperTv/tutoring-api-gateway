@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Actions\Auth\GetDomainConnectionAction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authable;
 use Illuminate\Notifications\Notifiable;
@@ -11,9 +12,8 @@ use App\Enum\Field;
 class User extends Authable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public const USERNAME_FIELD = Field::MOBILE;
 
-    protected $connection = 'user_management';
+    public const USERNAME_FIELD = Field::MOBILE;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
@@ -66,7 +66,12 @@ class User extends Authable
 
     public function findForPassport(string $username): User
     {
-        $this->connection = request()->input('connection');
         return $this->where(self::USERNAME_FIELD, request()->input('username'))->firstOrFail();
+    }
+
+    public function getConnectionName(): ?string
+    {
+        $this->connection = GetDomainConnectionAction::make()->handle();
+        return parent::getConnectionName();
     }
 }

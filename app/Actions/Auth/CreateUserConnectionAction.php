@@ -11,7 +11,7 @@ class CreateUserConnectionAction
 
     /**
      */
-    public function handle(array $connection): void
+    public function handle(array $connection): string
     {
         $name = Ulid::generate();
         $cnf = array_merge(config("database.connections.mysql"), [
@@ -23,5 +23,6 @@ class CreateUserConnectionAction
 
         config(["database.connections.{$name}" => $cnf]);
         request()->merge(['connection' => $name]);
+        return $name;
     }
 }

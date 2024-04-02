@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Actions\Auth\GetUserAction;
-use App\Actions\Auth\CreateUserConnectionAction;
 use App\Actions\Auth\GetDomainConnectionAction;
 use App\Enum\Field;
 use App\Http\Resources\API\Auth\LogoutResource;
+use App\Http\Resources\API\Auth\RefreshTokenResource;
 use App\Http\Resources\API\Auth\TokenResource;
-use App\Http\Resources\API\Auth\ValidateTokenResource;
 use App\Models\User;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Psr\Http\Message\ServerRequestInterface;
 
 class AuthController extends BaseController
@@ -25,7 +22,6 @@ class AuthController extends BaseController
         $username = request(Field::USERNAME);
         $password = request(Field::PASSWORD);
         $user = GetUserAction::make()->handle($username,$password);
-        GetDomainConnectionAction::make()->handle();
 
         $token =  $this->makeToken($request);
         $dto = (object)[
@@ -35,10 +31,11 @@ class AuthController extends BaseController
         return TokenResource::make($dto);
     }
 
-    public function refreshToken(ServerRequestInterface $request): TokenResource
+    public function refreshToken(ServerRequestInterface $request): RefreshTokenResource
     {
-        $tokenData =  $this->makeToken($request);
-        return TokenResource::make($tokenData);
+        $token =  $this->makeToken($request);
+        $dto = (object)[  'token' => $token];
+        return RefreshTokenResource::make($dto);
     }
 
     public function logout (Request $request)

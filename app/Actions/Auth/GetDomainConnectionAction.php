@@ -12,10 +12,10 @@ class GetDomainConnectionAction
 
     /**
      */
-    public function handle(): void
+    public function handle(): string
     {
         $response = GetDomainConnectionRequest::build()->send();
         abort_unless($response->ok(), UnauthorizedException::class);
-        CreateUserConnectionAction::make()->handle($response->json('connection'));
+      return  CreateUserConnectionAction::make()->handle($response->json('connection'));
     }
 }
