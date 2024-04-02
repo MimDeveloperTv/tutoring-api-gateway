@@ -7,6 +7,8 @@ use App\Core\Enum\Manager as Enum;
 class Field extends Enum
 {
     public const PHONE = 'phone';
+
+    public const MOBILE = 'mobile';
     public const USERNAME = 'username';
     public const PASSWORD = 'password';
     public const ACTIVE = 'is_active';
@@ -47,20 +49,4 @@ class Field extends Enum
     public const SECRET = 'secret';
     public const PASSWORD_GRANT = 'password_client';
     public const EXIST_MEMBER_GROUP = true;
-
-    public const VALUES = [
-        self::PHONE,
-        self::USERNAME,
-        self::PASSWORD,
-        self::ACTIVE,
-        self::CLIENT_ID,
-    ];
-    public const FORMATS = [
-        self::PHONE => self::PHONE,
-        self::USERNAME => self::USERNAME,
-        self::PASSWORD => self::PASSWORD,
-        self::ACTIVE => self::ACTIVE,
-        self::CLIENT_ID => self::CLIENT_ID,
-    ];
-
 }

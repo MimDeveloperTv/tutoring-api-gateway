@@ -25,6 +25,7 @@ abstract class BaseRequest extends TransporterRequest
         $request->withHeaders([
             'X-CLIENT-CREDENTIAL' => config('services.credentials.client'),
             'ACCEPT' => 'APPLICATION/JSON',
+            'DOMAIN' => request()->header('domain'),
         ]);
     }
     public function loadBaseUrl():string

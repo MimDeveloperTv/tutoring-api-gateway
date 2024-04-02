@@ -11,11 +11,10 @@ use App\Enum\Field;
 class User extends Authable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public const PASSWORD_FIELD = Field::PASSWORD;
-    public const ACTIVE_FIELD = Field::ACTIVE;
-    public const USERNAME_FIELD = Field::PHONE;
+    public const USERNAME_FIELD = Field::MOBILE;
 
-    protected $connection = 'buloro_pay';
+    protected $connection = 'user_management';
+
     protected $table = 'users';
     protected $primaryKey = 'id';
 
@@ -24,14 +23,36 @@ class User extends Authable
      *
      * @var array<int, string>
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'id',
+        'national_code',
+        'password',
+        'email',
+        'mobile',
+        'firstname',
+        'lastname',
+        'birth_date',
+        'gender',
+        'avatar',
+        'isActive',
+        'api_token',
+        'email_verified_at',
+        'deleted_at',
+        'created_at',
+        'updated_at',
+        'personnel',
+        'operators',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     /**
      * The attributes that should be cast.
@@ -45,9 +66,7 @@ class User extends Authable
 
     public function findForPassport(string $username): User
     {
-        return $this->where([
-            [self::USERNAME_FIELD, $username],
-            [self::ACTIVE_FIELD,true],
-        ])->firstOrFail();
+        $this->connection = request()->input('connection');
+        return $this->where(self::USERNAME_FIELD, request()->input('username'))->firstOrFail();
     }
 }

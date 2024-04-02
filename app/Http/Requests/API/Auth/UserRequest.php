@@ -5,7 +5,7 @@ namespace App\Http\Requests\API\Auth;
 use App\Enum\Field;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLookupRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     //public string $mobileRegex = '/^\+(\d{1,4})(\d{4,14})$/';
 

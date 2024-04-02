@@ -1,26 +1,22 @@
 <?php
 
-namespace App\Transporter\Auth\Otp;
+namespace App\Transporter\Auth;
 
 use App\Core\Transporter\BaseRequest;
 use App\Enum\Method;
 use Illuminate\Http\Client\PendingRequest;
 
-class SendOtpRequest extends BaseRequest
+class CheckUserRequest extends BaseRequest
 {
-    public const NAME = 'send-otp';
+    public const NAME = 'check-user';
     protected string $domain = 'USER_MANAGEMENT';
     protected string $method = Method::POST;
-    protected string $path = '/send-otp';
+    protected string $path = '/login'; //todo:change to check-user name
     protected array $data = [];
 
     protected function withRequest(PendingRequest $request): void
     {
         parent::withRequest($request);
-
-        //todo : add Advanced Headers And Keys
-
-       // $request->withHeaders(['X-USER-ID' => auth()->id(),]);
     }
     public function withData(array $data): static
     {

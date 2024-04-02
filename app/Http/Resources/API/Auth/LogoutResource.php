@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Resources\API\Auth\Lookup;
+namespace App\Http\Resources\API\Auth;
 
-use App\Enum\Field;
 use App\Enum\GrantType;
-use App\Enum\LookupAction as Action;
-use App\Enum\UserGroup;
-use App\Enum\UserStatus;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @property mixed $message
  */
-class LookupResource extends JsonResource
+class LogoutResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,9 +19,8 @@ class LookupResource extends JsonResource
     public function toArray($request) //phpcs:ignore
     {
         return [
-            Field::ACTION => Action::format($this->resource->action),
-            Field::IS_USER => $this->resource->is_user,
-            Field::IS_MEMBER_GROUP => $this->resource->is_member_group,
+            'message' => 'You have been successfully logged out!',
+            'grant_type' => GrantType::format(GrantType::PASSWORD),
         ];
     }
 }

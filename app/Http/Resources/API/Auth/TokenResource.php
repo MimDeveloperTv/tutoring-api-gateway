@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\API\Auth\Pass;
+namespace App\Http\Resources\API\Auth;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,4 +15,11 @@ class TokenResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    public function toArray($request) //phpcs:ignore
+    {
+        return [
+            'token' => $this->resource->token,
+            'user' => $this->resource->user,
+        ];
+    }
 }

@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use Laravel\Passport\Http\Controllers\AccessTokenController as PassportAccessTokenController;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BaseController extends PassportAccessTokenController
+abstract class BaseController extends PassportAccessTokenController
 {
     public function makeToken($request): array
     {

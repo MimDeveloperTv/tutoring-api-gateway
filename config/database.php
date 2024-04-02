@@ -63,15 +63,15 @@ return [
             ]) : [],
         ],
 
-        'buloro_pay' => [
+        'user_management' => [
             'driver' => 'mysql',
-            'url' => env('BULOROPAY_DATABASE_URL'),
-            'host' => env('BULOROPAY_DB_HOST', '127.0.0.1'),
-            'port' => env('BULOROPAY_DB_PORT', '3306'),
-            'database' => env('BULOROPAY_DB_DATABASE', 'forge'),
-            'username' => env('BULOROPAY_DB_USERNAME', 'forge'),
-            'password' => env('BULOROPAY_DB_PASSWORD', ''),
-            'unix_socket' => env('BULOROPAY_DB_SOCKET', ''),
+            'url' => env('USER_MANAGEMENT_DATABASE_URL'),
+            'host' => env('USER_MANAGEMENT_DB_HOST', '127.0.0.1'),
+            'port' => env('USER_MANAGEMENT_DB_PORT', '3306'),
+            'database' => env('USER_MANAGEMENT_DB_DATABASE', 'forge'),
+            'username' => env('USER_MANAGEMENT_DB_USERNAME', 'forge'),
+            'password' => env('USER_MANAGEMENT_DB_PASSWORD', ''),
+            'unix_socket' => env('USER_MANAGEMENT_DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
