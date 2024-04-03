@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Domains\Card\Contracts;
+namespace App\Domains\Core\Contracts;
 
-interface CardContract
+interface CoreContract
 {
     public function index(array $data): mixed;
     public function show(string $id): mixed;
+
     public function store(array $data): mixed;
 }

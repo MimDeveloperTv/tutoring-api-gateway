@@ -33,15 +33,15 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            $this->defaultApiRegister();
+            $this->defaultGlobalRegister();
             $this->domainV1Register();
         });
 
     }
 
-    public function defaultApiRegister(): RouteRegistrar
+    public function defaultGlobalRegister(): RouteRegistrar
     {
-        return Route::prefix('api')->group(base_path('routes/global/api.php'));
+        return Route::prefix('api')->group(base_path('routes/global/global.php'));
     }
 
     public function domainV1Register(): RouteRegistrar

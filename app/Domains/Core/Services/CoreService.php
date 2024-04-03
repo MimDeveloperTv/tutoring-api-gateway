@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domains\Card\Services;
+namespace App\Domains\Core\Services;
 
 use App\Domains\Global\Exceptions\DomainException;
 use App\Domains\Global\Services\GlobalService;
-use App\Domains\Card\Contracts\CardContract;
+use App\Domains\Core\Contracts\CoreContract;
 
-class CardService extends GlobalService implements CardContract
+class CoreService extends GlobalService implements CoreContract
 {
-    public const CONFIG = 'card';
+    public const CONFIG = 'core';
     /**
      * WalletService constructor.
      */
@@ -20,18 +20,18 @@ class CardService extends GlobalService implements CardContract
     /**  @throws DomainException */
     public function index(array $data): mixed
     {
-        return $this->get("cards", $data);
+        return $this->get("operators", $data);
     }
 
     /**  @throws DomainException */
     public function show(string $id): mixed
     {
-        return $this->get("cards/{$id}", []);
+        return $this->get("operators/{$id}", []);
     }
 
     /**  @throws DomainException */
     public function store(array $data): mixed
     {
-        return $this->post("cards", $data);
+        return $this->post("operators", $data);
     }
 }

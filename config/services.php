@@ -25,8 +25,7 @@ return [
     ],
 
     'domains' => [
-        'user' => env('DOMAIN_USER','http://localhost'),
-        'card' => env('DOMAIN_CARD','http://localhost'),
+        'core' => env('DOMAIN_CORE','http://localhost'),
     ],
 
     'credentials' => [

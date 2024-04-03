@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\API\Auth\AuthController as Auth;
-use App\Http\Controllers\API\EnumController as Enum;
 
 Route::group(['prefix' => 'auth', 'as' => 'auth.','middleware' => 'api'], function () {
 
@@ -17,6 +16,3 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.','middleware' => 'api'], functi
     });
 
 });
-
-
-Route::get('/enums',[Enum::class,'enums'])->name('enums');

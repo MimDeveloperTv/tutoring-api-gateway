@@ -1,6 +1,5 @@
 <?php
 
-include 'domains/user.php';
-include 'domains/card.php';
+include 'domains/core.php';
 
 

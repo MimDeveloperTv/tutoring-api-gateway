@@ -6,20 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 /* Contracts */
-use App\Domains\User\Contracts\UserContract;
-use App\Domains\Card\Contracts\CardContract;
+use App\Domains\Core\Contracts\CoreContract;
+
 
 /* Services */
-use App\Domains\User\Services\UserService;
-use App\Domains\Card\Services\CardService;
+use App\Domains\Core\Services\CoreService;
 
 
 class DomainServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(UserContract::class, UserService::class);
-        $this->app->bind(CardContract::class, CardService::class);
+        $this->app->bind(CoreContract::class, CoreService::class);
     }
 
     public function boot(Request $request): void

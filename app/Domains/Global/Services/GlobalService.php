@@ -17,36 +17,24 @@ class GlobalService
     public function __construct($domain)
     {
         $basePath = config("services.domains.{$domain}");
-        $this->group = $this->getGroup();
-        $this->url = "{$basePath}/{$this->group}";
-    }
-
-    public function getGroup(): string
-    {
-        /* @var $user User */
-        $user = auth()->user();
-        if(!empty($user)){
-            $userAccessToken = $user->token();
-            $group = $userAccessToken->client()->first('name')->name;
-            return str($group)->lower()->value();
-        }
-        return '';
+        $this->url = "{$basePath}";
     }
 
     public function headers(): array
     {
+        $user = auth()->user();
         return [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'X-USER-ID' => auth()->user()->getAuthIdentifier(),
-            'X-USER-TYPE' => str($this->group)->upper()->value(),
+            'X-USER-ID' => !empty($user) ? $user->getAuthIdentifier() : null,
             'X-CLIENT-CREDENTIAL' => config('services.credentials.client'),
+            'DOMAIN' => request()->header('domain') ?? null,
         ];
 
     }
 
     /**  @throws DomainException */
-    public function get($path, $data = null)
+    public function get($path, $data = [])
     {
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
@@ -62,7 +50,7 @@ class GlobalService
     }
 
     /**  @throws DomainException */
-    public function post($path, $data, ?array $mergedHeaders = [])
+    public function post($path, $data = [], ?array $mergedHeaders = [])
     {
         $client = Http::acceptJson()
             ->withHeaders(array_merge($this->headers(), $mergedHeaders))
@@ -78,7 +66,7 @@ class GlobalService
     }
 
     /**  @throws DomainException */
-    public function postWithFile($path, $data, $file = null): mixed
+    public function postWithFile($path, $data = [], $file = null): mixed
     {
         $headers = $this->headers();
         unset($headers['Content-Type']);
@@ -102,7 +90,7 @@ class GlobalService
     }
 
     /**  @throws DomainException */
-    public function patch($path, $data)
+    public function patch($path, $data = [])
     {
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
@@ -118,7 +106,7 @@ class GlobalService
     }
 
     /**  @throws DomainException */
-    public function put($path, $data)
+    public function put($path, $data = [])
     {
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
@@ -134,7 +122,7 @@ class GlobalService
     }
 
     /**  @throws DomainException */
-    public function delete($path, $data = null)
+    public function delete($path, $data = [])
     {
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
