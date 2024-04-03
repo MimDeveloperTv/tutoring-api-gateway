@@ -10,11 +10,10 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.','middleware' => 'api'], functi
         Route::post('/login',[Auth::class,'login'])->name('auth.login');
 
         Route::post('/refresh-token',[Auth::class,'refreshToken']) ->name('auth.refreshToken');
+    });
 
-        Route::middleware(['auth:api'])->group( function () {
-            Route::post('/logout',[Auth::class,'logout'])->name('auth.logout');
-        });
-
+    Route::middleware(['auth:api'])->group( function () {
+        Route::post('/logout',[Auth::class,'logout'])->name('auth.logout');
     });
 
 });

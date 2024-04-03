@@ -18,6 +18,10 @@ class User extends Authable
     protected $table = 'users';
     protected $primaryKey = 'id';
 
+    protected $keyType = 'uuid';
+
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
