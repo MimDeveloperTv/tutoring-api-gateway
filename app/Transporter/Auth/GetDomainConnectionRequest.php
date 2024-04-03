@@ -9,7 +9,7 @@ use Illuminate\Http\Client\PendingRequest;
 class GetDomainConnectionRequest extends BaseRequest
 {
     public const NAME = 'domain-connection';
-    protected string $domain = 'USER_MANAGEMENT';
+    protected string $domain = 'CORE';
     protected string $method = Method::GET;
     protected string $path = '/get-domain-connection'; //todo:change to check-user name
     protected array $data = [];

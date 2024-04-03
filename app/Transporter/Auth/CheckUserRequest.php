@@ -9,7 +9,7 @@ use Illuminate\Http\Client\PendingRequest;
 class CheckUserRequest extends BaseRequest
 {
     public const NAME = 'check-user';
-    protected string $domain = 'USER_MANAGEMENT';
+    protected string $domain = 'CORE';
     protected string $method = Method::POST;
     protected string $path = '/login'; //todo:change to check-user name
     protected array $data = [];

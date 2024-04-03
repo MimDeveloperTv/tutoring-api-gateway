@@ -20,7 +20,8 @@ return [
     ],
 
     'services' => [
-        'userManagement' => env('SERVICE_USER_MANAGEMENT','http://localhost'),
+        'core' => env('SERVICE_CORE','http://localhost'),
+        //'userManagement' => env('SERVICE_USER_MANAGEMENT','http://localhost'),
     ],
 
     'domains' => [
