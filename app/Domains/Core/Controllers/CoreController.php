@@ -15,19 +15,19 @@ class CoreController extends DomainController
     {
     }
 
-    public function index(Request $request): JsonResponse
+    public function operatorIndex(Request $request): JsonResponse
     {
-        return $this->responseIndex($this->coreService->index($request->toArray()));
+        return $this->index($this->coreService->operatorIndex($request->toArray()));
     }
 
-    public function show(string $id): JsonResponse
+    public function operatorShow(string $id): JsonResponse
     {
-        return $this->responseShow($this->coreService->show($id));
+        return $this->show($this->coreService->operatorShow($id));
     }
 
-    public function store(Request $request): JsonResponse
+    public function operatorStore(Request $request): JsonResponse
     {
-        return $this->responseStore($this->coreService->store($request->toArray()));
+        return $this->store($this->coreService->operatorStore($request->toArray()));
     }
 
 }

@@ -18,19 +18,19 @@ class CoreService extends GlobalService implements CoreContract
     }
 
     /**  @throws DomainException */
-    public function index(array $data): mixed
+    public function operatorIndex(array $data): mixed
     {
         return $this->get("operators", $data);
     }
 
     /**  @throws DomainException */
-    public function show(string $id): mixed
+    public function operatorShow(string $id): mixed
     {
         return $this->get("operators/{$id}", []);
     }
 
     /**  @throws DomainException */
-    public function store(array $data): mixed
+    public function operatorStore(array $data): mixed
     {
         return $this->post("operators", $data);
     }
