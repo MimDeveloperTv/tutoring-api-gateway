@@ -30,4 +30,71 @@ class CoreController extends DomainController
         return $this->store($this->coreService->operatorStore($request->toArray()));
     }
 
+
+    public function personnelIndex(Request $request): JsonResponse
+    {
+        return $this->index($this->coreService->personnelIndex($request->toArray()));
+    }
+
+    public function personnelShow(string $id): JsonResponse
+    {
+        return $this->show($this->coreService->personnelShow($id));
+    }
+
+
+    public function patientIndex(Request $request): JsonResponse
+    {
+        return $this->index($this->coreService->patientIndex($request->toArray()));
+    }
+
+    public function patientShow(string $id): JsonResponse
+    {
+        return $this->show($this->coreService->patientShow($id));
+    }
+
+    public function patientStore(Request $request): JsonResponse
+    {
+        return $this->store($this->coreService->patientStore($request->toArray()));
+    }
+
+
+    public function userPatientShow(string $id): JsonResponse
+    {
+        return $this->show($this->coreService->userPatientShow($id));
+    }
+
+    public function userPatientStore(Request $request,string $id): JsonResponse
+    {
+        return $this->store($this->coreService->userPatientStore($id,$request->toArray()));
+    }
+
+    public function userOperatorShow(string $id): JsonResponse
+    {
+        return $this->show($this->coreService->userOperatorShow($id));
+    }
+
+    public function userOperatorStore(Request $request,string $id): JsonResponse
+    {
+        return $this->store($this->coreService->userOperatorStore($id,$request->toArray()));
+    }
+
+
+
+    public function appointmentIndex(Request $request): JsonResponse
+    {
+        return $this->index($this->coreService->appointmentIndex($request->toArray()));
+    }
+
+    public function appointmentStatusUpdate(Request $request,string $id): JsonResponse
+    {
+        return $this->update($this->coreService->appointmentStatusUpdate($id,$request->toArray()));
+    }
+
+    public function appointmentPaymentStatusUpdate(Request $request,string $id): JsonResponse
+    {
+        return $this->update($this->coreService->appointmentPaymentStatusUpdate($id,$request->toArray()));
+    }
+
+
+
 }

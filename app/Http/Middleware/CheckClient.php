@@ -36,7 +36,7 @@ class CheckClient
             $grantType = $this->getGrantType();
             $clientRep = $this->fetchClient($clientId,$isExistClientSecret,$grantType);
             if (!$clientRep) {
-                throw new AuthorizationException;
+                throw new AuthorizationException('This client is unauthorized', 400);
             }
         }
 

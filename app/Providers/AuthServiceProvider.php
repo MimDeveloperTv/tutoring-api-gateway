@@ -33,7 +33,12 @@ class AuthServiceProvider extends ServiceProvider
         Passport::usePersonalAccessClientModel(PersonalAccessClient::class);
 
         // Token Lifetimes
-        Passport::tokensExpireIn(now()->addMinutes(30));
+
+        //develop
+        Passport::tokensExpireIn(now()->addMinutes(3000));
+
+        //finally
+       // Passport::tokensExpireIn(now()->addMinutes(30));
         Passport::refreshTokensExpireIn(now()->addDays(30));
         Passport::personalAccessTokensExpireIn(now()->addYears(2));
     }

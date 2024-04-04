@@ -131,6 +131,11 @@ class GlobalService
         $response = $client->json();
 
         if ($client->failed()) {
+
+            if(!empty(data_get($response,'errors'))){
+                $response = data_get($response,'errors');
+            }
+
             $this->exception($client->status(), $response, $client->toException());
         }
 
