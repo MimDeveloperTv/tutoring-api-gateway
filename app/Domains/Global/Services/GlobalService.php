@@ -24,21 +24,23 @@ class GlobalService
     {
         $user = auth()->user();
         return [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'X-USER-ID' => !empty($user) ? $user->getAuthIdentifier() : null,
-            'X-CLIENT-CREDENTIAL' => config('services.credentials.client'),
-            'DOMAIN' => request()->header('domain') ?? null,
-        ];
-
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'X-USER-ID' => !empty($user) ? $user->getAuthIdentifier() : null,
+                'X-CLIENT-CREDENTIAL' => config('services.credentials.client'),
+                'DOMAIN' => request()->header('domain') ?? null,
+            ];
     }
 
     /**  @throws DomainException */
     public function get($path, $data = [])
     {
+        $endpoint = "{$this->url}/{$path}";
+        $endpoint = $this->checkDebugMode($endpoint);
+
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
-            ->get("{$this->url}/{$path}", $data);
+            ->get($endpoint, $data);
 
         $response = $client->json();
 
@@ -52,9 +54,12 @@ class GlobalService
     /**  @throws DomainException */
     public function post($path, $data = [], ?array $mergedHeaders = [])
     {
+        $endpoint = "{$this->url}/{$path}";
+        $endpoint = $this->checkDebugMode($endpoint);
+
         $client = Http::acceptJson()
             ->withHeaders(array_merge($this->headers(), $mergedHeaders))
-            ->post("{$this->url}/{$path}", $data);
+            ->post($endpoint, $data);
 
         $response = $client->json();
 
@@ -71,6 +76,9 @@ class GlobalService
         $headers = $this->headers();
         unset($headers['Content-Type']);
 
+        $endpoint = "{$this->url}/{$path}";
+        $endpoint = $this->checkDebugMode($endpoint);
+
         $client = Http::acceptJson()
             ->withHeaders($headers);
 
@@ -78,7 +86,7 @@ class GlobalService
             $client->attach('file', fopen($file, 'r'), $file->getClientOriginalName());
         }
 
-        $client = $client->post("{$this->url}/{$path}", $data);
+        $client = $client->post($endpoint, $data);
 
         $response = $client->json();
 
@@ -92,9 +100,12 @@ class GlobalService
     /**  @throws DomainException */
     public function patch($path, $data = [])
     {
+        $endpoint = "{$this->url}/{$path}";
+        $endpoint = $this->checkDebugMode($endpoint);
+
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
-            ->patch("{$this->url}/{$path}", $data);
+            ->patch($endpoint, $data);
 
         $response = $client->json();
 
@@ -108,9 +119,12 @@ class GlobalService
     /**  @throws DomainException */
     public function put($path, $data = [])
     {
+        $endpoint = "{$this->url}/{$path}";
+        $endpoint = $this->checkDebugMode($endpoint);
+
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
-            ->put("{$this->url}/{$path}", $data);
+            ->put($endpoint, $data);
 
         $response = $client->json();
 
@@ -124,9 +138,12 @@ class GlobalService
     /**  @throws DomainException */
     public function delete($path, $data = [])
     {
+        $endpoint = "{$this->url}/{$path}";
+        $endpoint = $this->checkDebugMode($endpoint);
+
         $client = Http::acceptJson()
             ->withHeaders($this->headers())
-            ->delete("{$this->url}/{$path}", $data);
+            ->delete($endpoint, $data);
 
         $response = $client->json();
 
@@ -146,6 +163,12 @@ class GlobalService
     private function exception($status, $errors, \Throwable $exception)
     {
         throw new DomainException($status, $errors, previous: $exception);
+    }
+
+    private function checkDebugMode($endpoint)
+    {
+        $Debugging = !empty(request()->query('XDEBUG_SESSION'));
+        return $Debugging ?  ($endpoint . "?XDEBUG_SESSION=true")  : $endpoint;
     }
 
 }
