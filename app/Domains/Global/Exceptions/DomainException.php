@@ -17,7 +17,7 @@ class DomainException extends Exception
      */
     public function __construct($code = 0, ?array $errors = null, Exception $previous = null)
     {
-        parent::__construct('http call request', $code, $previous);
+        parent::__construct('Domain Exception', $code, $previous);
 
         $this->errors = $errors;
     }
@@ -25,7 +25,7 @@ class DomainException extends Exception
     /**
      * @return array
      */
-    public function getErrors(): ?array
+    public function errors(): ?array
     {
         return $this->errors;
     }

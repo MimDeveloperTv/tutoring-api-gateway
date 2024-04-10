@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
-    public const DOMAIN_MIDDLEWARES = ['api', 'auth:api'];
+    public const DOMAIN_MIDDLEWARES = ['api', 'auth:api','domain.check'];
 
     private const PREFIX_V1 = 'v1';
 

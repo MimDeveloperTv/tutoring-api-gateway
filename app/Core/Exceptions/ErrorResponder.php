@@ -50,10 +50,10 @@ final class ErrorResponder
             $class = $class == empty(request()->bearerToken()) ? AuthenticationException::class : $class;
         }
 
-        if($class == DomainException::class){
-            $class = RequestException::class;
-            $exception = $exception->getPrevious();
-        }
+//        if($class == DomainException::class){
+//            $class = RequestException::class;
+//            $exception = $exception->getPrevious();
+//        }
 
         //handle throw_unless And throw_if Responder
 
@@ -104,6 +104,12 @@ final class ErrorResponder
                 401,
                 401,
                 'Not Authenticated'
+            ),
+            DomainException::class => self::fail(
+                422,
+                400,
+                $exception->getMessage(),
+                $exception->errors()
             ),
 
             default => self::fail(
